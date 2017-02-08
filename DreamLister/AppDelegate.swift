@@ -91,3 +91,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// the below line of code make it easier to access the contents of app delegate.swift in other classes
+// using the ad variable.now if we want to access savecontext function we will say ad.savecontext()
+
+
+let ad = UIApplication.shared.delegate as! AppDelegate
+let context = ad.persistentContainer.viewContext
+
+
+
+
+
+
