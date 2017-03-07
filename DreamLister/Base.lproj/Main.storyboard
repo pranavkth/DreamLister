@@ -268,9 +268,6 @@
                     <navigationItem key="navigationItem" title="Add/Edit" id="y6R-cu-zEm">
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="xDv-5W-e3t">
                             <color key="tintColor" red="0.92549020049999997" green="0.23529411850000001" blue="0.1019607857" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="DeleteBtnPressed:" destination="edr-VE-WrX" id="3Dy-r9-68S"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -283,7 +280,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZC4-qF-M8P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2591" y="-322"/>
+            <point key="canvasLocation" x="2734" y="-428"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3Xn-g6-PoN">

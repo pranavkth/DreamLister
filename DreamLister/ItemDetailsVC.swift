@@ -35,16 +35,6 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSour
         dismiss(animated: true, completion: nil)
     }
    
-    @IBAction func DeleteBtnPressed(_ sender: Any) {
-        
-        if itemToEdit != nil {
-            context.delete(itemToEdit!)
-            ad.saveContext()
-            _ = navigationController?.popViewController(animated: true)
-        }
-            
-        
-    }
     @IBAction func SaveBtnPressed(_ sender: Any) {
         
         var item : Item!
@@ -119,9 +109,10 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSour
         store6.name = "Jabong"
         
         ad.saveContext()*/
-        
-        
     }
+    
+    
+    
     
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -187,9 +178,4 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSour
             }
         }
     }
-    
-    
-    
-    
-
 }

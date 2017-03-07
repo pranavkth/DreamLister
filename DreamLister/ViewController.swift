@@ -95,6 +95,21 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    // adding swipe to delete functionality in table view:
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            if let objs = controller.fetchedObjects , objs.count > 0 {
+                let item = objs[indexPath.row]
+                    context.delete(item)
+                    ad.saveContext()
+                }
+            }
+        }
+    
+    
+    
     // function called when segment value is changed.
     
     
