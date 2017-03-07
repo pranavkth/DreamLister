@@ -9,13 +9,32 @@
 import UIKit
 import CoreData
 
-class ItemDetailsVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate {
+class ItemDetailsVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     @IBOutlet weak var storePicker: UIPickerView!
     @IBOutlet weak var titleField :  CustomTextField!
     @IBOutlet weak var price : CustomTextField!
     @IBOutlet weak var details : CustomTextField!
+    @IBOutlet weak var imageView: UIImageView!
     
+    let imagePicker = UIImagePickerController()
+    
+    // function which is called when load image is pressed.
+    
+    @IBAction func loadImagePressed(_ sender: Any) {
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
+            imageView.contentMode = .scaleAspectFit
+            imageView.image = pickedImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
+   
     @IBAction func DeleteBtnPressed(_ sender: Any) {
         
         if itemToEdit != nil {
@@ -30,16 +49,18 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSour
         
         var item : Item!
         
+        // since picture is an entity in itself so first it is created as an nsmanaged object and then assigned to the item relationship.
+        
         if itemToEdit == nil {
-            
             item = Item(context: context)
         }
-        
         else{
-            
             item = itemToEdit
-            
         }
+        
+        let picture = Image(context: context)
+        picture.image = imageView.image
+        item.toImage = picture
         
         if let title = titleField.text{
             item.title = title
@@ -52,6 +73,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSour
             item.details = details
         }
         item.toStore = stores[storePicker.selectedRow(inComponent: 0)]
+        
         ad.saveContext()
         _ = navigationController?.popViewController(animated: true)
         
@@ -69,11 +91,14 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSour
         if let topItem = self.navigationController?.navigationBar.topItem {
             topItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         }
+        
         titleField.delegate = self
         price.delegate = self
         details.delegate = self
         storePicker.dataSource = self
         storePicker.delegate = self
+        imagePicker.delegate = self
+    
         getStore()
         
         if itemToEdit != nil{
@@ -97,11 +122,13 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSour
         
         
     }
-    // function to get rid of keyboard when it is not longer required.
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.text = ""
     }
+    
+    // function to get rid of keyboard when it is not longer required.
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
        self.view.endEditing(true)
@@ -144,6 +171,7 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSour
             titleField.text = item.title
             price.text = String(item.price)
             details.text = item.details
+            imageView.image = item.toImage?.image as? UIImage
             
             if let store = item.toStore{
                 var index = 0
@@ -159,6 +187,8 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate,UIPickerViewDataSour
             }
         }
     }
+    
+    
     
     
 

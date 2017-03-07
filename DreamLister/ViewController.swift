@@ -32,10 +32,22 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
        // below line returns a reusable cell of tableview with the identifier as itemcell.
         
         let cell = tableview.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemCell
+        
         configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
         return cell
         
     }
+    
+    func configureCell(cell: ItemCell, indexPath: NSIndexPath){
+        // once the fetch is successfull the controller will fetch sections which inturn will contain rows which are of the type nsmanaged objects.
+        
+        let item = controller.object(at: indexPath as IndexPath)
+        cell.configureCell(item: item)
+        
+    }
+    
+    // this function is called when a row of table view is clicked on 
+    // here it takes us to another screen where we can edit/delete it.
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -58,13 +70,7 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
     
     // this function is used to update the contents of the table view cell with the fetched cell.
     
-    func configureCell(cell: ItemCell, indexPath: NSIndexPath){
-    // once the fetch is successfull the controller will fetch sections which inturn will contain rows which are of the type nsmanaged objects.
-        
-       let item = controller.object(at: indexPath as IndexPath)
-        cell.configureCell(item: item)
-        
-    }
+    
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -89,14 +95,35 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    // function called when segment value is changed.
+    
+    
+    @IBAction func segmentChange(_ sender: Any) {
+        
+        attemptFetch()
+        tableview.reloadData()
+    }
+    
+    
     // function to attempt fetch of the data from the database.
     
     func attemptFetch(){
         
         let fetchRequest : NSFetchRequest<Item> = Item.fetchRequest()
         let datesort = NSSortDescriptor(key: "created", ascending: true)
-        fetchRequest.sortDescriptors = [datesort]
-        // code to create a controller.
+        let pricesort = NSSortDescriptor(key: "price", ascending: true)
+        let titlesort = NSSortDescriptor(key:"title",ascending:true)
+        
+        if segment.selectedSegmentIndex == 0{
+            fetchRequest.sortDescriptors = [datesort]
+        }
+        else if segment.selectedSegmentIndex == 1{
+            fetchRequest.sortDescriptors = [pricesort]
+        }
+        else if segment.selectedSegmentIndex == 2{
+            fetchRequest.sortDescriptors = [titlesort]
+        }
+                // code to create a controller.
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         // part of boilerplatecode and will make the functions to listen to this class.
         
