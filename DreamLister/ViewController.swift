@@ -24,7 +24,6 @@ class ViewController: UIViewController , UITableViewDelegate, UITableViewDataSou
         tableview.delegate = self
         //generateTestData()
         attemptFetch()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     

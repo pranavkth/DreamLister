@@ -265,11 +265,7 @@
                             <constraint firstItem="9tQ-xP-mJN" firstAttribute="top" secondItem="4FH-Zt-OFK" secondAttribute="bottom" constant="10" id="xDO-y5-ATd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Add/Edit" id="y6R-cu-zEm">
-                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="xDv-5W-e3t">
-                            <color key="tintColor" red="0.92549020049999997" green="0.23529411850000001" blue="0.1019607857" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Add/Edit" id="y6R-cu-zEm"/>
                     <connections>
                         <outlet property="details" destination="qjs-A3-gyz" id="IoB-gW-QOh"/>
                         <outlet property="imageView" destination="j3q-pe-1kp" id="rRx-85-96P"/>
@@ -280,7 +276,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZC4-qF-M8P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2734" y="-428"/>
+            <point key="canvasLocation" x="2767" y="-313"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3Xn-g6-PoN">
@@ -310,6 +306,6 @@
         <image name="tesla" width="800" height="489"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="M50-lb-Ohs"/>
+        <segue reference="e3L-3c-zsG"/>
     </inferredMetricsTieBreakers>
 </document>
